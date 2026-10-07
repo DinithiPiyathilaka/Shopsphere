@@ -1,0 +1,155 @@
+[
+  {
+    "id": "p001",
+    "name": "Aurora Wireless Headphones",
+    "category": "Electronics",
+    "price": 129.99,
+    "rating": 4.6,
+    "stock": 24,
+    "badge": "Bestseller",
+    "images": [
+      "https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "https://images.pexels.com/photos/3394653/pexels-photo-3394653.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "https://picsum.photos/seed/aurora-headphones-3/800/800"
+    ],
+    "description": "Immerse yourself in studio-quality sound with the Aurora Wireless Headphones. Featuring adaptive noise cancellation, 40-hour battery life, and plush memory-foam ear cushions built for all-day comfort.",
+    "reviews": [
+      { "author": "Jamie L.", "rating": 5, "title": "Incredible sound stage", "body": "Bass is punchy without drowning out the mids. Noise cancellation handles my commute perfectly." },
+      { "author": "Devon K.", "rating": 4, "title": "Comfortable for long sessions", "body": "Wore these for an 8 hour flight with zero discomfort. Docked a star because the carrying case is a bit bulky." },
+      { "author": "Priya S.", "rating": 5, "title": "Worth every penny", "body": "Pairing is instant and the app lets you tune the EQ. Highly recommend for remote workers." }
+    ]
+  },
+  {
+    "id": "p002",
+    "name": "Lumen Smart Watch",
+    "category": "Electronics",
+    "price": 199.99,
+    "rating": 4.4,
+    "stock": 15,
+    "badge": "New",
+    "images": [
+      "https://picsum.photos/seed/lumen-watch-1/800/800",
+      "https://picsum.photos/seed/lumen-watch-2/800/800",
+      "https://picsum.photos/seed/lumen-watch-3/800/800"
+    ],
+    "description": "Track every step, swim, and sleep cycle with the Lumen Smart Watch. A vivid AMOLED display, 10-day battery, and built-in GPS keep you connected without the constant charging.",
+    "reviews": [
+      { "author": "Marco T.", "rating": 4, "title": "Great fitness companion", "body": "Heart rate tracking has been spot on compared to my chest strap monitor." },
+      { "author": "Elena R.", "rating": 5, "title": "Battery life is unreal", "body": "I genuinely only charge this once a week. Sleep tracking insights are a nice bonus." }
+    ]
+  },
+  {
+    "id": "p003",
+    "name": "Classic Oxford Shirt",
+    "category": "Apparel",
+    "price": 49.99,
+    "rating": 4.2,
+    "stock": 40,
+    "badge": "",
+    "images": [
+      "https://picsum.photos/seed/oxford-shirt-1/800/800",
+      "https://picsum.photos/seed/oxford-shirt-2/800/800",
+      "https://picsum.photos/seed/oxford-shirt-3/800/800"
+    ],
+    "description": "A timeless wardrobe staple, tailored from breathable 100% combed cotton. The Classic Oxford Shirt pairs effortlessly with denim or dress pants for any occasion.",
+    "reviews": [
+      { "author": "Sam W.", "rating": 4, "title": "True to size", "body": "Fits exactly as expected and the fabric feels premium for the price." },
+      { "author": "Noah F.", "rating": 4, "title": "Great everyday shirt", "body": "Holds up well after multiple washes, no shrinkage so far." }
+    ]
+  },
+  {
+    "id": "p004",
+    "name": "Everyday Canvas Tote",
+    "category": "Accessories",
+    "price": 34.99,
+    "rating": 4.7,
+    "stock": 60,
+    "badge": "Eco-Friendly",
+    "images": [
+      "https://picsum.photos/seed/canvas-tote-1/800/800",
+      "https://picsum.photos/seed/canvas-tote-2/800/800",
+      "https://picsum.photos/seed/canvas-tote-3/800/800"
+    ],
+    "description": "Heavy-duty 16oz organic canvas built to haul groceries, laptops, or beach gear. Reinforced stitching at every stress point means this tote is built to last for years.",
+    "reviews": [
+      { "author": "Grace H.", "rating": 5, "title": "My go-to bag", "body": "Been using it daily for three months, zero signs of wear. Love the inner pocket." },
+      { "author": "Liam C.", "rating": 4, "title": "Sturdy and roomy", "body": "Fits my 15-inch laptop plus a change of clothes with room to spare." }
+    ]
+  },
+  {
+    "id": "p005",
+    "name": "Velvet Lounge Throw",
+    "category": "Home",
+    "price": 59.99,
+    "rating": 4.5,
+    "stock": 32,
+    "badge": "",
+    "images": [
+      "https://picsum.photos/seed/velvet-throw-1/800/800",
+      "https://picsum.photos/seed/velvet-throw-2/800/800",
+      "https://picsum.photos/seed/velvet-throw-3/800/800"
+    ],
+    "description": "Wrap your living room in warmth with this ultra-soft velvet throw. Double-stitched edges and a generous 50x60 inch size make it perfect for movie nights.",
+    "reviews": [
+      { "author": "Olivia P.", "rating": 5, "title": "So cozy", "body": "Softer than it looks in photos. The color is rich and doesn't fade after washing." },
+      { "author": "Ethan B.", "rating": 4, "title": "Great gift idea", "body": "Bought two as housewarming gifts, both recipients loved them." }
+    ]
+  },
+  {
+    "id": "p006",
+    "name": "Nimbus Running Sneakers",
+    "category": "Apparel",
+    "price": 89.99,
+    "rating": 4.3,
+    "stock": 18,
+    "badge": "Limited Stock",
+    "images": [
+      "https://picsum.photos/seed/nimbus-sneakers-1/800/800",
+      "https://picsum.photos/seed/nimbus-sneakers-2/800/800",
+      "https://picsum.photos/seed/nimbus-sneakers-3/800/800"
+    ],
+    "description": "Engineered with responsive foam cushioning and a breathable knit upper, the Nimbus Running Sneakers deliver mile after mile of comfort for runners of every level.",
+    "reviews": [
+      { "author": "Carlos D.", "rating": 4, "title": "Great for daily runs", "body": "Cushioning holds up well past 50 miles. Sizing runs slightly narrow." },
+      { "author": "Mia J.", "rating": 5, "title": "Love the support", "body": "No more knee pain on long runs since I switched to these." }
+    ]
+  },
+  {
+    "id": "p007",
+    "name": "Artisan Ceramic Mug Set",
+    "category": "Home",
+    "price": 27.99,
+    "rating": 4.8,
+    "stock": 50,
+    "badge": "Staff Pick",
+    "images": [
+      "https://picsum.photos/seed/ceramic-mug-1/800/800",
+      "https://picsum.photos/seed/ceramic-mug-2/800/800",
+      "https://picsum.photos/seed/ceramic-mug-3/800/800"
+    ],
+    "description": "A set of four hand-glazed stoneware mugs, each with a one-of-a-kind finish. Microwave and dishwasher safe, these mugs bring artisan charm to your morning coffee.",
+    "reviews": [
+      { "author": "Hannah V.", "rating": 5, "title": "Beautiful craftsmanship", "body": "Each mug has slightly different glazing, it makes the set feel really special." },
+      { "author": "Tyler N.", "rating": 5, "title": "Perfect gift set", "body": "Packaging was excellent and the mugs feel substantial in hand." }
+    ]
+  },
+  {
+    "id": "p008",
+    "name": "Horizon Leather Wallet",
+    "category": "Accessories",
+    "price": 44.99,
+    "rating": 4.5,
+    "stock": 28,
+    "badge": "",
+    "images": [
+      "https://images.pexels.com/photos/12495668/pexels-photo-12495668.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "https://images.pexels.com/photos/12495669/pexels-photo-12495669.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "https://picsum.photos/seed/horizon-wallet-3/800/800"
+    ],
+    "description": "Hand-stitched from full-grain leather that develops a rich patina over time. Slim profile with 6 card slots, 2 hidden pockets, and RFID-blocking lining.",
+    "reviews": [
+      { "author": "Ava M.", "rating": 5, "title": "Slim and functional", "body": "Fits perfectly in a front pocket and the leather quality is outstanding." },
+      { "author": "Lucas G.", "rating": 4, "title": "Great daily carry", "body": "RFID blocking gives me peace of mind, stitching looks very durable." }
+    ]
+  }
+]

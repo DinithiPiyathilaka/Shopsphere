@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ShopSphere QA Sandbox</title>
+<meta name="description" content="ShopSphere QA Sandbox — an open-source e-commerce demo app for manual testing, API validation, and E2E automation practice." />
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="antialiased pb-16 md:pb-0">
+
+<!-- ===================== HEADER ===================== -->
+<header class="sticky top-0 z-30 bg-white/90 backdrop-blur-soft border-b border-black/5">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center gap-4">
+    <button class="font-display text-2xl md:text-3xl font-bold tracking-tight flex-shrink-0" data-nav="home" data-testid="logo-home">Shop<span style="color:var(--color-accent)">Sphere</span></button>
+
+    <nav class="hidden md:flex items-center gap-7 ml-6 text-sm font-medium text-gray-600">
+      <button data-nav="home" data-testid="nav-home" class="hover:text-ink transition">Home</button>
+      <button data-nav="shop" data-testid="nav-shop" class="hover:text-ink transition">Shop</button>
+      <button data-nav="shop" data-testid="nav-deals" class="hover:text-ink transition">Deals</button>
+      <button data-nav="about" data-testid="nav-about" class="hover:text-ink transition">About</button>
+    </nav>
+
+    <div class="flex-1 hidden sm:flex items-center max-w-sm ml-auto">
+      <div class="relative w-full">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+        <input type="search" id="input-search" data-testid="input-search" placeholder="Search products..."
+          class="w-full pl-9 pr-3 py-2 rounded-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4 ml-auto sm:ml-4">
+      <button id="btn-account" data-testid="btn-account" class="hidden sm:flex items-center gap-2 text-sm font-medium hover:text-ink transition">
+        <i class="fa-regular fa-user"></i>
+        <span id="account-label">Account</span>
+      </button>
+      <button id="btn-logout" data-testid="btn-logout" class="hidden text-xs text-gray-400 hover:text-red-500 transition">Sign out</button>
+      <button id="btn-cart-toggle" data-testid="btn-cart-toggle" class="relative flex items-center gap-2 text-sm font-medium hover:text-ink transition">
+        <i class="fa-solid fa-bag-shopping text-lg"></i>
+        <span id="cart-count" data-testid="cart-count" class="hidden absolute -top-2 -right-2 bg-[color:var(--color-accent)] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="sm:hidden px-4 pb-3">
+    <div class="relative w-full">
+      <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+      <input type="search" id="input-search-mobile" placeholder="Search products..."
+        class="w-full pl-9 pr-3 py-2 rounded-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+    </div>
+  </div>
+</header>
+
+<main id="app-root">
+
+  <!-- ===================== HOME VIEW ===================== -->
+  <section id="view-home" class="app-view">
+    <div class="relative h-[70vh] min-h-[420px] w-full overflow-hidden">
+      <img src="https://images.pexels.com/photos/35045845/pexels-photo-35045845.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1600" alt="Boutique interior" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 hero-gradient"></div>
+      <div class="relative z-10 max-w-7xl mx-auto h-full flex flex-col justify-center px-6 md:px-12 text-white">
+        <p class="uppercase tracking-[0.3em] text-xs md:text-sm mb-4 text-white/80">New Season Arrivals</p>
+        <h1 class="font-display text-4xl md:text-6xl font-bold max-w-xl leading-tight mb-5">Elevate Your Everyday</h1>
+        <p class="max-w-md text-white/85 mb-8">Thoughtfully designed goods for home, wardrobe, and everything in between — curated with you in mind.</p>
+        <button id="btn-shop-now" data-testid="btn-shop-now" class="btn-accent w-fit px-7 py-3 rounded-full font-semibold">Shop Now <i class="fa-solid fa-arrow-right ml-1"></i></button>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-16">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <p class="uppercase tracking-widest text-xs text-gray-400 mb-2">Curated For You</p>
+          <h2 class="font-display text-3xl font-bold">Featured Collections</h2>
+        </div>
+        <button data-nav="shop" class="hidden md:block text-sm font-semibold underline underline-offset-4">View all products</button>
+      </div>
+      <div id="featured-collections" class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8"></div>
+    </div>
+
+    <div class="bg-white border-y border-black/5">
+      <div class="max-w-7xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+        <div>
+          <i class="fa-solid fa-truck-fast text-2xl mb-3" style="color:var(--color-accent)"></i>
+          <h3 class="font-semibold mb-1">Free Shipping</h3>
+          <p class="text-sm text-gray-500">On all orders over $50</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-rotate-left text-2xl mb-3" style="color:var(--color-accent)"></i>
+          <h3 class="font-semibold mb-1">Easy Returns</h3>
+          <p class="text-sm text-gray-500">30-day hassle-free policy</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-lock text-2xl mb-3" style="color:var(--color-accent)"></i>
+          <h3 class="font-semibold mb-1">Secure Checkout</h3>
+          <p class="text-sm text-gray-500">Encrypted & PCI compliant (mock)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 md:px-8 py-16 text-center">
+      <h2 class="font-display text-2xl font-bold mb-3">Join the ShopSphere Insider List</h2>
+      <p class="text-gray-500 mb-6">Get early access to new drops, sandbox release notes, and QA changelog updates.</p>
+      <form id="form-newsletter" data-testid="form-newsletter" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault(); this.reset();">
+        <input type="email" required placeholder="you@example.com" data-testid="input-newsletter-email" class="flex-1 px-4 py-3 rounded-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+        <button type="submit" data-testid="btn-newsletter-submit" class="btn-primary px-6 py-3 rounded-full font-semibold text-sm">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== SHOP VIEW ===================== -->
+  <section id="view-shop" class="app-view hidden max-w-7xl mx-auto px-4 md:px-8 py-10">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+      <div>
+        <p class="uppercase tracking-widest text-xs text-gray-400 mb-2">Catalog</p>
+        <h1 class="font-display text-3xl font-bold">Shop All Products</h1>
+      </div>
+      <span id="results-count" data-testid="results-count" class="text-sm text-gray-500">0 products</span>
+    </div>
+
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+      <div id="category-pills" class="flex items-center gap-2 overflow-x-auto pb-1"></div>
+      <select id="select-sort" data-testid="select-sort" class="border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/20 w-fit">
+        <option value="featured">Sort: Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating">Top Rated</option>
+        <option value="name">Name: A-Z</option>
+      </select>
+    </div>
+
+    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6"></div>
+  </section>
+
+  <!-- ===================== ABOUT VIEW ===================== -->
+  <section id="view-about" class="app-view hidden max-w-3xl mx-auto px-4 md:px-8 py-16">
+    <p class="uppercase tracking-widest text-xs text-gray-400 mb-2">About</p>
+    <h1 class="font-display text-3xl font-bold mb-6">About ShopSphere QA Sandbox</h1>
+    <p class="text-gray-600 leading-relaxed mb-4">ShopSphere is an open-source demo storefront purpose-built as a QA portfolio project. It simulates a realistic e-commerce experience — product discovery, cart management, promo codes, and a multi-step checkout — so testers can practice manual test case design, exploratory testing, Jira bug logging, and end-to-end automation with tools like Playwright and Cypress.</p>
+    <p class="text-gray-600 leading-relaxed mb-4">Every interactive element exposes a <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">data-testid</code> attribute, key user actions emit simulated GA4 analytics events on <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">window</code>, and a mock REST layer returns realistic 200/400/404 responses for API-level validation.</p>
+    <p class="text-gray-600 leading-relaxed">This build also contains a handful of intentionally planted bugs for bug-logging practice — see the README for details.</p>
+  </section>
+
+  <!-- ===================== CHECKOUT VIEW ===================== -->
+  <section id="view-checkout" class="app-view hidden max-w-6xl mx-auto px-4 md:px-8 py-12">
+    <h1 class="font-display text-3xl font-bold mb-10 text-center">Checkout</h1>
+
+    <div class="flex items-center justify-center gap-4 mb-12" data-testid="checkout-stepper">
+      <div class="flex items-center gap-2">
+        <div id="step-circle-1" class="step-circle active w-9 h-9 rounded-full border-2 border-ink flex items-center justify-center font-semibold text-sm">1</div>
+        <span class="text-sm font-medium hidden sm:inline">Shipping</span>
+      </div>
+      <div class="w-10 h-px bg-gray-300"></div>
+      <div class="flex items-center gap-2">
+        <div id="step-circle-2" class="step-circle w-9 h-9 rounded-full border-2 border-gray-300 flex items-center justify-center font-semibold text-sm text-gray-400">2</div>
+        <span class="text-sm font-medium hidden sm:inline">Payment</span>
+      </div>
+      <div class="w-10 h-px bg-gray-300"></div>
+      <div class="flex items-center gap-2">
+        <div id="step-circle-3" class="step-circle w-9 h-9 rounded-full border-2 border-gray-300 flex items-center justify-center font-semibold text-sm text-gray-400">3</div>
+        <span class="text-sm font-medium hidden sm:inline">Confirmation</span>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-10">
+      <div class="lg:col-span-2">
+
+        <!-- STEP 1: SHIPPING -->
+        <div id="checkout-step-1" class="checkout-step">
+        <form id="form-shipping" data-testid="form-shipping">
+          <h2 class="font-display text-xl font-bold mb-5">Shipping Address</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="text-sm font-medium block mb-1">Full Name</label>
+              <input id="input-fullname" data-testid="input-fullname" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-fullname-error" data-testid="error-fullname" class="hidden text-xs field-error-msg mt-1">Full name is required.</p>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-sm font-medium block mb-1">Street Address</label>
+              <input id="input-address" data-testid="input-address" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-address-error" data-testid="error-address" class="hidden text-xs field-error-msg mt-1">Street address is required.</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium block mb-1">City</label>
+              <input id="input-city" data-testid="input-city" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-city-error" data-testid="error-city" class="hidden text-xs field-error-msg mt-1">City is required.</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium block mb-1">State / Province</label>
+              <input id="input-state" data-testid="input-state" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-state-error" data-testid="error-state" class="hidden text-xs field-error-msg mt-1">State is required.</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium block mb-1">ZIP / Postal Code</label>
+              <input id="input-zip" data-testid="input-zip" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-zip-error" data-testid="error-zip" class="hidden text-xs field-error-msg mt-1">Enter a valid ZIP / postal code.</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium block mb-1">Country</label>
+              <select id="input-country" data-testid="input-country" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20">
+                <option value="">Select country</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GB">United Kingdom</option>
+                <option value="AU">Australia</option>
+                <option value="IN">India</option>
+              </select>
+              <p id="input-country-error" data-testid="error-country" class="hidden text-xs field-error-msg mt-1">Please select a country.</p>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-sm font-medium block mb-1">Phone</label>
+              <input id="input-phone" data-testid="input-phone" type="tel" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-phone-error" data-testid="error-phone" class="hidden text-xs field-error-msg mt-1">Enter a valid phone number.</p>
+            </div>
+          </div>
+          <button type="submit" data-testid="btn-shipping-continue" class="btn-primary w-full sm:w-auto mt-6 px-8 py-3 rounded-full font-semibold">Continue to Payment</button>
+        </form>
+        </div>
+
+        <!-- STEP 2: PAYMENT -->
+        <div id="checkout-step-2" class="checkout-step hidden">
+        <form id="form-payment" data-testid="form-payment">
+          <h2 class="font-display text-xl font-bold mb-5">Payment Details</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="text-sm font-medium block mb-1">Name on Card</label>
+              <input id="input-card-name" data-testid="input-card-name" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-card-name-error" data-testid="error-card-name" class="hidden text-xs field-error-msg mt-1">Name on card is required.</p>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-sm font-medium block mb-1">Card Number</label>
+              <input id="input-card-number" data-testid="input-card-number" type="text" placeholder="4242 4242 4242 4242" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-card-number-error" data-testid="error-card-number" class="hidden text-xs field-error-msg mt-1">Enter a valid 13-19 digit card number.</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium block mb-1">Expiry (MM/YY)</label>
+              <input id="input-card-expiry" data-testid="input-card-expiry" type="text" placeholder="08/27" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-card-expiry-error" data-testid="error-card-expiry" class="hidden text-xs field-error-msg mt-1">Use MM/YY format.</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium block mb-1">CVV</label>
+              <input id="input-card-cvv" data-testid="input-card-cvv" type="text" placeholder="123" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+              <p id="input-card-cvv-error" data-testid="error-card-cvv" class="hidden text-xs field-error-msg mt-1">3 or 4 digit CVV required.</p>
+            </div>
+          </div>
+          <div class="flex gap-3 mt-6">
+            <button type="button" id="btn-back-to-shipping" data-testid="btn-back-to-shipping" class="px-6 py-3 rounded-full font-semibold border border-gray-300">Back</button>
+            <button type="submit" id="btn-place-order" data-testid="btn-place-order" class="btn-primary flex-1 sm:flex-none px-8 py-3 rounded-full font-semibold">Place Order</button>
+          </div>
+        </form>
+        </div>
+
+        <!-- STEP 3: CONFIRMATION -->
+        <div id="checkout-step-3" class="checkout-step hidden text-center py-10" data-testid="checkout-confirmation">
+          <i class="fa-solid fa-circle-check text-5xl mb-5" style="color:var(--color-success)"></i>
+          <h2 class="font-display text-2xl font-bold mb-2">Order Confirmed!</h2>
+          <p class="text-gray-500 mb-6">Thanks, <span id="confirmation-email" class="font-medium"></span> — your order is on its way.</p>
+          <div class="inline-block bg-gray-50 border border-black/5 rounded-xl px-8 py-5 mb-8">
+            <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Order ID</p>
+            <p id="confirmation-order-id" data-testid="confirmation-order-id" class="font-display text-xl font-bold mb-3"></p>
+            <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Total Charged</p>
+            <p id="confirmation-total" data-testid="confirmation-total" class="font-semibold"></p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <button id="btn-continue-shopping" data-testid="btn-continue-shopping" class="px-6 py-3 rounded-full font-semibold border border-gray-300">Continue Shopping</button>
+            <button id="btn-finish" data-testid="btn-finish" class="btn-primary px-8 py-3 rounded-full font-semibold">Finish</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY SIDEBAR -->
+      <aside class="bg-gray-50 border border-black/5 rounded-2xl p-6 h-fit" data-testid="checkout-order-summary">
+        <h3 class="font-display text-lg font-bold mb-4">Order Summary</h3>
+        <div id="checkout-summary-items" class="mb-4 max-h-64 overflow-y-auto"></div>
+        <div class="space-y-1.5 text-sm border-t border-black/10 pt-4">
+          <div class="flex justify-between"><span class="text-gray-500">Subtotal</span><span id="checkout-summary-subtotal">$0.00</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Discount</span><span id="checkout-summary-discount" class="text-emerald-600">$0.00</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Shipping</span><span id="checkout-summary-shipping">$0.00</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Tax</span><span id="checkout-summary-tax">$0.00</span></div>
+          <div class="flex justify-between font-bold text-base border-t border-black/10 pt-2 mt-2"><span>Total</span><span id="checkout-summary-total">$0.00</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="bg-ink text-white mt-10">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-14 grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div class="col-span-2 md:col-span-1">
+      <h4 class="font-display text-xl font-bold mb-3">ShopSphere</h4>
+      <p class="text-white/60 text-sm">An open-source e-commerce QA sandbox for manual & automated testing practice.</p>
+    </div>
+    <div>
+      <h5 class="font-semibold mb-3 text-sm uppercase tracking-wide text-white/70">Shop</h5>
+      <ul class="space-y-2 text-sm text-white/60">
+        <li><button data-nav="shop" class="hover:text-white transition">All Products</button></li>
+        <li><button data-nav="shop" class="hover:text-white transition">New Arrivals</button></li>
+        <li><button data-nav="shop" class="hover:text-white transition">Best Sellers</button></li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold mb-3 text-sm uppercase tracking-wide text-white/70">Company</h5>
+      <ul class="space-y-2 text-sm text-white/60">
+        <li><button data-nav="about" class="hover:text-white transition">About Us</button></li>
+        <li><a href="https://github.com" target="_blank" rel="noopener" class="hover:text-white transition">GitHub Repo</a></li>
+        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold mb-3 text-sm uppercase tracking-wide text-white/70">Support</h5>
+      <ul class="space-y-2 text-sm text-white/60">
+        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+        <li><a href="#" class="hover:text-white transition">Shipping & Returns</a></li>
+        <li><a href="#" class="hover:text-white transition">Jira Board (demo)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-5 px-4 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/50 max-w-7xl mx-auto">
+    <span>© 2026 ShopSphere QA Sandbox. For testing & educational purposes only.</span>
+    <span id="footer-version" data-testid="footer-version">App Version: v1.4.2 | Environment: Staging | Health: OK</span>
+  </div>
+</footer>
+
+<!-- ===================== MOBILE BOTTOM NAV ===================== -->
+<nav class="mobile-bottom-nav md:hidden bg-white border-t border-black/10 flex items-center justify-around py-2" data-testid="mobile-footer-nav">
+  <button data-mobile-nav="home" data-testid="mnav-home" class="flex flex-col items-center text-xs text-gray-500 gap-1 px-3 py-1">
+    <i class="fa-solid fa-house text-base"></i>Home
+  </button>
+  <button data-mobile-nav="shop" data-testid="mnav-shop" class="flex flex-col items-center text-xs text-gray-500 gap-1 px-3 py-1">
+    <i class="fa-solid fa-grip text-base"></i>Shop
+  </button>
+  <button data-mobile-nav="cart" data-testid="mnav-cart" class="flex flex-col items-center text-xs text-gray-500 gap-1 px-3 py-1 relative">
+    <i class="fa-solid fa-bag-shopping text-base"></i>Cart
+  </button>
+  <button id="btn-mobile-account" data-testid="mnav-account" class="flex flex-col items-center text-xs text-gray-500 gap-1 px-3 py-1">
+    <i class="fa-regular fa-user text-base"></i>Account
+  </button>
+</nav>
+
+<!-- ===================== CART DRAWER ===================== -->
+<div id="cart-overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
+<aside id="cart-drawer" data-testid="cart-drawer" class="hidden fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-50 flex flex-col shadow-2xl">
+  <div class="flex items-center justify-between px-5 py-4 border-b border-black/5">
+    <h3 class="font-display text-xl font-bold">Your Cart</h3>
+    <button id="btn-close-cart" data-testid="btn-close-cart" class="text-gray-400 hover:text-ink text-xl"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="flex-1 overflow-y-auto px-5">
+    <div id="cart-empty-state" class="hidden text-center py-16 text-gray-400">
+      <i class="fa-solid fa-bag-shopping text-3xl mb-3"></i>
+      <p>Your cart is empty.</p>
+    </div>
+    <div id="cart-items" data-testid="cart-items"></div>
+  </div>
+  <div class="px-5 py-4 border-t border-black/5">
+    <div class="mb-3">
+      <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1 block">Promo Code</label>
+      <div class="flex gap-2">
+        <input id="input-promo-code" data-testid="input-promo-code" type="text" placeholder="Try SAVE20 or FREESHIP" class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+        <button id="btn-apply-promo" data-testid="btn-apply-promo" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">Apply</button>
+      </div>
+      <p id="promo-message" data-testid="promo-message" class="text-xs mt-2"></p>
+    </div>
+    <div class="space-y-1.5 text-sm mb-4">
+      <div class="flex justify-between"><span class="text-gray-500">Subtotal</span><span id="cart-subtotal" data-testid="cart-subtotal">$0.00</span></div>
+      <div class="flex justify-between"><span class="text-gray-500">Discount</span><span id="cart-discount" data-testid="cart-discount" class="text-emerald-600">$0.00</span></div>
+      <div class="flex justify-between"><span class="text-gray-500">Shipping</span><span id="cart-shipping" data-testid="cart-shipping">$0.00</span></div>
+      <div class="flex justify-between"><span class="text-gray-500">Tax</span><span id="cart-tax" data-testid="cart-tax">$0.00</span></div>
+      <div class="flex justify-between font-bold text-base border-t border-black/10 pt-2 mt-2"><span>Total</span><span id="cart-total" data-testid="cart-total">$0.00</span></div>
+    </div>
+    <button id="cart-checkout-btn" data-testid="btn-checkout" class="btn-accent w-full py-3 rounded-full font-semibold disabled:opacity-50">Checkout</button>
+  </div>
+</aside>
+
+<!-- ===================== PRODUCT DETAIL MODAL ===================== -->
+<div id="modal-product" data-testid="modal-product" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="modal-pop bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+    <button id="btn-close-modal" data-testid="btn-close-modal" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white shadow flex items-center justify-center text-gray-500 hover:text-ink"><i class="fa-solid fa-xmark"></i></button>
+    <div class="grid md:grid-cols-2 gap-0">
+      <div class="p-6">
+        <img id="modal-gallery-main" data-testid="modal-gallery-main" src="" alt="Product image" class="w-full aspect-square object-cover rounded-xl mb-4" />
+        <div id="modal-gallery-thumbs" data-testid="modal-gallery-thumbs" class="flex gap-3"></div>
+      </div>
+      <div class="p-6 md:pr-8">
+        <p id="modal-product-category" class="text-xs uppercase tracking-widest text-gray-400 mb-2"></p>
+        <h2 id="modal-product-title" data-testid="modal-product-title" class="font-display text-2xl font-bold mb-2"></h2>
+        <div id="modal-product-rating" class="flex items-center gap-1 text-sm mb-3"></div>
+        <p id="modal-product-price" data-testid="modal-product-price" class="text-2xl font-bold mb-1"></p>
+        <p id="modal-product-stock" class="text-xs text-emerald-600 font-medium mb-4"></p>
+        <p id="modal-product-desc" class="text-sm text-gray-600 leading-relaxed mb-6"></p>
+
+        <div class="flex items-center gap-4 mb-6">
+          <span class="text-sm font-medium">Quantity</span>
+          <div class="flex items-center border border-gray-300 rounded-full">
+            <button id="btn-qty-decrease" data-testid="btn-qty-decrease" class="w-9 h-9 text-lg">−</button>
+            <input id="input-quantity" data-testid="input-quantity" type="number" min="1" value="1" class="w-12 text-center border-0 focus:outline-none" />
+            <button id="btn-qty-increase" data-testid="btn-qty-increase" class="w-9 h-9 text-lg">+</button>
+          </div>
+        </div>
+
+        <button id="modal-add-to-cart" data-testid="btn-modal-add-to-cart" class="btn-accent w-full py-3 rounded-full font-semibold mb-8">
+          <i class="fa-solid fa-bag-shopping mr-2"></i>Add to Cart
+        </button>
+
+        <h3 class="font-display font-bold mb-2">Customer Reviews</h3>
+        <div id="modal-reviews" data-testid="modal-reviews"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== AUTH MODAL ===================== -->
+<div id="modal-auth" data-testid="modal-auth" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="modal-pop bg-white rounded-2xl max-w-md w-full relative p-7">
+    <button id="btn-close-auth" data-testid="btn-close-auth" class="absolute top-4 right-4 text-gray-400 hover:text-ink text-xl"><i class="fa-solid fa-xmark"></i></button>
+    <h2 class="font-display text-2xl font-bold mb-5">Welcome to ShopSphere</h2>
+
+    <div class="flex border-b border-black/10 mb-5">
+      <button id="tab-login" data-testid="tab-login" class="flex-1 pb-3 text-sm font-semibold border-b-2 border-ink text-ink">Sign In</button>
+      <button id="tab-register" data-testid="tab-register" class="flex-1 pb-3 text-sm font-semibold border-b-2 border-transparent text-gray-400">Register</button>
+    </div>
+
+    <form id="form-login" data-testid="form-login">
+      <div class="mb-3">
+        <label class="text-sm font-medium block mb-1">Username</label>
+        <input id="input-username" data-testid="input-username" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+      </div>
+      <div class="mb-3">
+        <label class="text-sm font-medium block mb-1">Password</label>
+        <input id="input-password" data-testid="input-password" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+      </div>
+      <p id="alert-login-error" data-testid="alert-login-error" class="hidden text-sm field-error-msg mb-3 bg-red-50 px-3 py-2 rounded-lg"></p>
+      <button type="submit" id="btn-login-submit" data-testid="btn-login-submit" class="btn-primary w-full py-3 rounded-full font-semibold mb-4">Sign In</button>
+      <div class="bg-gray-50 rounded-lg p-3 text-xs text-gray-500">
+        <p class="font-semibold mb-2 text-gray-600">Demo credentials:</p>
+        <div class="flex items-center justify-between mb-1.5">
+          <span>standard_user / password123</span>
+          <button type="button" data-fill-user="standard_user" data-testid="btn-fill-standard-user" class="text-ink font-semibold underline underline-offset-2">Use</button>
+        </div>
+        <div class="flex items-center justify-between">
+          <span>problem_user / password123</span>
+          <button type="button" data-fill-user="problem_user" data-testid="btn-fill-problem-user" class="text-ink font-semibold underline underline-offset-2">Use</button>
+        </div>
+      </div>
+    </form>
+
+    <form id="form-register" data-testid="form-register" class="hidden">
+      <div class="mb-3">
+        <label class="text-sm font-medium block mb-1">Choose a Username</label>
+        <input id="input-register-username" data-testid="input-register-username" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+      </div>
+      <div class="mb-3">
+        <label class="text-sm font-medium block mb-1">Create a Password</label>
+        <input id="input-register-password" data-testid="input-register-password" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black/20" />
+      </div>
+      <p id="alert-register-error" data-testid="alert-register-error" class="hidden text-sm field-error-msg mb-3 bg-red-50 px-3 py-2 rounded-lg"></p>
+      <button type="submit" id="btn-register-submit" data-testid="btn-register-submit" class="btn-primary w-full py-3 rounded-full font-semibold">Create Account</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== TOAST STACK ===================== -->
+<div id="toast-stack" class="toast-stack"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
